@@ -45,4 +45,25 @@ async function sendRegistrationEmail(userEmail, name) {
 
   await sendEmail(userEmail, subject, text, html);
 }
-module.exports = { sendRegistrationEmail };
+
+async function sendTransactionEmail(userEmail, name, amount, toAccount) {
+  const subject = "Transaction Alert from Pay Grid";
+  const text = `Hi ${name},\n\nYou have successfully transferred $${amount} to account ${toAccount}.\n\nBest regards,\nThe Pay Grid Team`;
+  const html = `<p>Hi ${name},</p><p>You have successfully transferred $${amount} to account ${toAccount}.</p><p>Best regards,<br>The Pay Grid Team</p>`;
+
+  await sendEmail(userEmail, subject, text, html);
+}
+
+async function sendFailedTransactionEmail(userEmail, name, amount, toAccount) {
+  const subject = "Transaction Failed Alert from Pay Grid";
+  const text = `Hi ${name},\n\nYour transaction to transfer $${amount} to account ${toAccount} has failed. Please check your account and try again.\n\nBest regards,\nThe Pay Grid Team`;
+  const html = `<p>Hi ${name},</p><p>Your transaction to transfer $${amount} to account ${toAccount} has failed. Please check your account and try again.</p><p>Best regards,<br>The Pay Grid Team</p>`;
+
+  await sendEmail(userEmail, subject, text, html);
+}
+
+module.exports = {
+  sendRegistrationEmail,
+  sendTransactionEmail,
+  sendFailedTransactionEmail,
+};
